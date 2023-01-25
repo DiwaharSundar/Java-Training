@@ -1,12 +1,36 @@
 package com.genesys.spring.training.GenesysSpringTraining.model;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+
+@Entity
 public class Agent implements Comparable<Agent> {
 
 	private int age;
+	
+	@Id
 	private String id;
 	private String name;
 	private String city;
 	private double salary;
+	
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "dn")
+	private DN dn;
+
+	
+
+	public DN getDn() {
+		return dn;
+	}
+
+	public void setDn(DN dn) {
+		this.dn = dn;
+	}
 
 	public double getSalary() {
 		return salary;
@@ -51,12 +75,6 @@ public class Agent implements Comparable<Agent> {
 		this.age = age;
 	}
 
-	// ABC123
-	// XYZ123
-
-	// Anantha
-	// Diwahar
-	// Satesh
 
 	@Override
 	public int compareTo(Agent o) {
@@ -67,5 +85,4 @@ public class Agent implements Comparable<Agent> {
 	public String toString() {
 		return "Agent [age=" + age + ", id=" + id + ", name=" + name + "]";
 	}
-
 }
